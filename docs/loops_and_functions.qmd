@@ -1,0 +1,69 @@
+---
+title: "Loops & Functions"
+author: "Josephine Cardelle"
+format: html
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+# Task 1
+```{r}
+# set up sequences ----
+weekdays <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+transects <- c("Transect A", "Transect B", "Transect C")
+
+# set matrix size ----
+week_transect_matrix <- matrix(nrow = length(weekdays), ncol = length (transects))
+
+# create matrix ----
+for (i in seq_along(weekdays)) {
+  for (j in seq_along(transects)) {
+   k <- print(paste0(weekdays[i], "-", transects[j]))
+week_transect_matrix[i,j] <- k    
+  }
+}
+```
+
+# Task 2
+```{r}
+force <- function(m, a) {
+  f = m * a
+  print(paste("The resulting force is", f, "Newtons"))
+}
+
+force(12,8)
+```
+
+# Task 3
+```{r}
+# recreate table ----
+fish_parms <- data.frame(sci_name = c("Chanos chanos", "Sphyraena barracuda", "Caranx ignobilis"), 
+                    common_name = c("Milkfish", "Great barracuda", "Giant trevally"),
+                         a_est = c(0.0905, 0.0181, 0.0353),
+                         b_est = c(2.52, 3.27, 3.05))
+library(tidyverse)
+# write function ----
+fish_weight <- function(fish_name, tot_length) { 
+  my_sub <- fish_parms %>% dplyr::filter(common_name == fish_name)
+  weight <- my_sub$a_est * tot_length ^ (my_sub$b_est)
+  return(weight)
+}
+
+fish_weight("Milkfish", 7)
+```
+
+# Task 4
+```{r}
+wave_power <- function(wave_height, wave_period) {
+  power <- 0.5 * wave_height^2 * wave_period
+  return(power)
+}
+
+wave_height_seq <- seq(from = 0, to = 3, by = 0.2)
+
+wave_power(wave_height_seq, 8)
+
+
+```
+
